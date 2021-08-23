@@ -8,6 +8,11 @@ export const getProductsById = {
       http: {
         method: 'get',
         path: 'product/{id}',
+        cors: true,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+        },
         // request: {
         //   schema: {
         //     'application/json': schema

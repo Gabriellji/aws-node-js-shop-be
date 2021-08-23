@@ -1,7 +1,10 @@
 export default {
   type: "object",
   properties: {
-    name: { type: 'string' }
+    statusCode: {type: 'number'},
+    body: {type: 'object'},
+    productName: { type: 'string' },
+    id: { type: 'number'}
   },
-  required: ['name']
+  required: ['productName', 'id']
 } as const;

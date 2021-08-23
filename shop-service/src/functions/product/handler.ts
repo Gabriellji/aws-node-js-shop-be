@@ -7,14 +7,32 @@ import products from '../../products.json';
 import schema from './schema';
 
 const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-  const { id } = event.pathParameters;
-  const product = products.products.find(el => el.id === Number(id));
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      product
-    ),
-  };
+  try {
+    const { id } = event.pathParameters;
+    const product = products.find(el => el.id === id);
+    console.log(product)
+    if (!product) {
+      console.log('NO PROD')
+      return {
+        statusCode: 404,
+        body: {
+          message: 'Product not found'
+        }
+      }
+    }
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        product
+      ),
+    };
+    } catch (err) {
+      return {
+        statusCode: 500,
+        body: err.message
+      }
+    }
+  
 }
 
 export const getById = middyfy(getProductsById);
