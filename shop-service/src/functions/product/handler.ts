@@ -9,7 +9,7 @@ import schema from './schema';
 const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
   try {
     const { id } = event.pathParameters;
-    const product = products.find(el => el.id === id);
+    const product = products.find(el => el.id === Number(id));
     console.log(product)
     if (!product) {
       console.log('NO PROD')
