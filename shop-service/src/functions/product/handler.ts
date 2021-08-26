@@ -1,39 +1,28 @@
-import 'source-map-support/register';
+import "source-map-support/register";
 
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
-import { middyfy } from '@libs/lambda';
-import products from '../../products.json';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/apiGateway";
+import { middyfy } from "@libs/lambda";
+import products from "../../products.json";
 
-import schema from './schema';
+import { apiResponses } from "src/error-handler/api_responses";
 
-const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-  try {
-    const { id } = event.pathParameters;
-    const product = products.find(el => el.id === Number(id));
-    console.log(product)
-    if (!product) {
-      console.log('NO PROD')
-      return {
-        statusCode: 404,
-        body: {
-          message: 'Product not found'
-        }
+import schema from "./schema";
+
+const getProductsById: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
+  async (event) => {
+    try {
+      const { id } = event.pathParameters;
+
+      const product = products.find((el) => el.id === Number(id));
+
+      if (!product) {
+        return apiResponses._404({ message: "Item not found" });
       }
-    }
-    return {
-      statusCode: 200,
-      body: JSON.stringify(
-        product
-      ),
-    };
+
+      return apiResponses._200(product);
     } catch (err) {
-      return {
-        statusCode: 500,
-        body: err.message
-      }
+      return apiResponses._500({ message: err.message });
     }
-  
-}
+  };
 
 export const getById = middyfy(getProductsById);
-

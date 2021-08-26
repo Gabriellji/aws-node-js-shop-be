@@ -3,24 +3,16 @@ import 'source-map-support/register';
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
 import products from '../../products.json';
-
 import schema from './schema';
 
-const getProductsList: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+import { apiResponses } from 'src/error-handler/api_responses';
+
+const getProductsList: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (_event) => {
   try {
-    console.log(event.headers);
     const listOfProducts = products;
-    return {
-      statusCode: 200,
-      body: JSON.stringify(
-        listOfProducts
-      ),
-    };
+    return apiResponses._200(listOfProducts);
   } catch (err) {
-    return {
-      statusCode: 500,
-      body: err.message
-    }
+    return apiResponses._500({ message: err.message });
   }
 
 }
