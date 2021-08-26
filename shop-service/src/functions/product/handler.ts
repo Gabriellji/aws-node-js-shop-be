@@ -4,7 +4,7 @@ import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
 import products from "../../products.json";
 
-import { apiResponses } from "src/error-handler/api_responses";
+import { apiResponses } from "../../error-handler/api_responses";
 
 import schema from "./schema";
 
