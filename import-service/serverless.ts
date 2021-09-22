@@ -16,6 +16,12 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
+    region: 'eu-west-1',
+    stage: 'dev',
+    apiGateway: {
+      minimumCompressionSize: 1024,
+      shouldStartNameWithService: true,
+    },
     iamRoleStatements: [
       {
         Effect: "Allow",
@@ -28,12 +34,9 @@ const serverlessConfiguration: AWS = {
         Resource: ["arn:aws:s3:::none-in-aws-s3/*"],
       },
     ],
-    apiGateway: {
-      minimumCompressionSize: 1024,
-      shouldStartNameWithService: true,
-    },
     environment: {
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+      AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+      BUCKET: '${env:BUCKET}',
     },
     lambdaHashingVersion: "20201221",
   },
