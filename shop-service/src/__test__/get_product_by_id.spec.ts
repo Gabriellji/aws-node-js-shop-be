@@ -17,7 +17,7 @@ describe('getById', () => {
       return handler as never;
     });
 
-    getById = (await import('../functions/product/handler')).getById;
+    getById = (await import('../functions/getProductsById/handler')).getProductsById;
   });
 
   afterEach(() => {

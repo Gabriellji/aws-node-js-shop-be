@@ -16,7 +16,7 @@ describe('getAll', () => {
       return handler as never;
     });
 
-    main = (await import('../functions/products/handler')).getAll;
+    main = (await import('../functions/getProductsList/handler')).getProductsList;
   });
 
   afterEach(() => {
