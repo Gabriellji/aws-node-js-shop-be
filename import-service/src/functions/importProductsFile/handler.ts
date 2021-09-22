@@ -13,7 +13,7 @@ const { BUCKET } = process.env;
 
 const s3 = new S3({ region: 'eu-west-1' });
 
-const importProductsFile = async (event): Promise<APIGatewayProxyResult> => {
+const importProductsFiles = async (event): Promise<APIGatewayProxyResult> => {
     try {
       const catalogName = event.queryStringParameters.name;
       const catalogPath = `uploaded/${catalogName}`;
@@ -37,4 +37,4 @@ const importProductsFile = async (event): Promise<APIGatewayProxyResult> => {
     }
   };
 
-export const main = middyfy(importProductsFile);
+export const main = middyfy(importProductsFiles);

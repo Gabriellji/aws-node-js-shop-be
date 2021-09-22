@@ -21,7 +21,7 @@ const { BUCKET } = process.env;
 const s3 = new S3({ region: 'eu-west-1' });
 const sqs = new SQS();
 
-export const importFileParser = async (event) => {
+export const importFileParsers = async (event) => {
   event.Records.forEach(async (record) => {
       const results = [];        
       const s3Stream = s3.getObject({
@@ -32,7 +32,7 @@ export const importFileParser = async (event) => {
       await finished(
           s3Stream.pipe(csv())
               .on('data', (data) => {
-
+                console.log(data)
                   results.push(data);
               })
               .on('end', async () => {
@@ -88,4 +88,4 @@ export const importFileParser = async (event) => {
 //     }
 //   };
 
-export const main = middyfy(importFileParser);
+export const main = middyfy(importFileParsers);

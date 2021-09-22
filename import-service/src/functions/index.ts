@@ -1,7 +1,7 @@
-import importProductsFile  from './importProductsFile';
-import importFileParser  from './importProductsFile';
+import importProductsFiles  from './importProductsFile';
+import importFileParsers  from './importProductsFile';
 
 export {
-    importProductsFile,
-    importFileParser
+    importProductsFiles,
+    importFileParsers
 }

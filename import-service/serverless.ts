@@ -1,6 +1,6 @@
 import type { AWS } from "@serverless/typescript";
 
-import { importProductsFile, importFileParser } from "./src/functions";
+import { importFileParsers, importProductsFiles }from "./src/functions";
 
 const serverlessConfiguration: AWS = {
   service: "import-service",
@@ -41,7 +41,7 @@ const serverlessConfiguration: AWS = {
     lambdaHashingVersion: "20201221",
   },
   // import the function via paths
-  functions: { importProductsFile, importFileParser },
+  functions: { importProductsFiles, importFileParsers },
 };
 
 module.exports = serverlessConfiguration;
